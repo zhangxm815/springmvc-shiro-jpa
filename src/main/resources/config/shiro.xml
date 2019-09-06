@@ -41,9 +41,7 @@
                 /login=anon
                 /login/**=anon
                 /logout = logout
-                /**/css/** = anon
-                /**/js/** = anon
-                /**/images/** = anon
+                /**/layui/** = anon
                 /**=authc
             </value>
         </property>

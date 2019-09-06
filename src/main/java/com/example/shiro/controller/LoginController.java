@@ -1,6 +1,8 @@
 package com.example.shiro.controller;
 
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UnknownAccountException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
@@ -20,18 +22,19 @@ public class LoginController {
 
     @RequestMapping("login")
     public String login(String username, String password) {
-        logger.info("----------login----------" + username);
-        if (username == null || password == null) {
-            return "index";
-        }
+
         UsernamePasswordToken token = new UsernamePasswordToken(username, password);
         Subject subject = SecurityUtils.getSubject();
         try {
             subject.login(token);
-            logger.info("---------------user:" + username + "登录成功");
-            return "success";
+            logger.info("用户：" + username + "登录成功");
+            return "main";
+        } catch (UnknownAccountException e) {
+            logger.error("账号错误");
+        } catch (IncorrectCredentialsException e) {
+            logger.error("密码错误");
         } catch (Exception e) {
-            logger.error("-----------登录验证失败：", e);
+            logger.error("登录失败");
         }
         return "index";
     }

@@ -17,7 +17,8 @@
     <context:component-scan base-package="com.example.shiro.controller"/>
 
     <!-- 对静态资源文件的访问方案 默认 -->
-    <mvc:default-servlet-handler/>
+
+    <mvc:resources mapping="/layui/**" location="/WEB-INF/layui/"/>
 
     <!-- 定义首页 -->
     <mvc:view-controller path="/" view-name="redirect:/index"/>

@@ -1,6 +1,6 @@
 package com.example.shiro.realm;
 
-import com.example.shiro.pojo.Users;
+import com.example.shiro.pojo.User;
 import com.example.shiro.service.UsersService;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -38,14 +38,12 @@ public class MyRealm extends AuthorizingRealm {
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken authcToken) throws AuthenticationException {
         // 获取基于用户名和密码的令牌
         UsernamePasswordToken token = (UsernamePasswordToken) authcToken;
-
-
-        Users users = usersService.getUserByUserName(token.getUsername());
+        User users = usersService.getUserByUserName(token.getUsername());
         if (users == null) {
             return null;
         }
-        AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(users.getUserName(), users.getPassword(), "realm123");
-
+        AuthenticationInfo authcInfo = new SimpleAuthenticationInfo(users.getName(), users.getPassword(), "realm123");
+        System.out.println("----------------登陆");
         return authcInfo;
     }
 }

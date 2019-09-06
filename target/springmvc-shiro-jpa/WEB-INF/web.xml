@@ -36,6 +36,7 @@
             org.springframework.web.util.WebAppRootListener
         </listener-class>
     </listener>
+
     <!-- Filter 定义  -->
     <!-- Character Encoding filter -->
     <filter>
@@ -60,8 +61,14 @@
         <filter-name>shiroFilter</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
         <init-param>
+            <!--表示声明周期交于spring容器管理-->
             <param-name>targetFilterLifecycle</param-name>
             <param-value>true</param-value>
+        </init-param>
+        <init-param>
+            <!--bean id-->
+            <param-name>targetBeanName</param-name>
+            <param-value>shiroFilter</param-value>
         </init-param>
     </filter>
     <filter-mapping>
